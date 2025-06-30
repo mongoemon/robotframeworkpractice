@@ -1,6 +1,6 @@
 # Robot Framework Practice Project
 
-This repository demonstrates best practices for organizing, writing, and running Robot Framework tests for both API and UI automation. It includes examples of bad, normal, good, and best practices, as well as environment-based testing and advanced keyword usage.
+This repository demonstrates best practices for organizing, writing, and running Robot Framework tests for API, web UI, and mobile automation. It includes examples of bad, normal, good, and best practices, as well as environment-based testing and advanced keyword usage.
 
 ---
 
@@ -8,24 +8,35 @@ This repository demonstrates best practices for organizing, writing, and running
 
 ```
 .
-├── tests/                # Robot Framework test suites
-│   ├── APIgeneral.robot
-│   ├── bad_practice_login.robot
-│   ├── best_practice_login.robot
-│   ├── good_practice_login.robot
-│   ├── normal_practice_login.robot
-│   ├── saucedemo_login.robot
-│   ├── test_api_env.robot
-│   ├── test_api_param.robot
-│   └── textvalidation.robot
-├── resources/            # Shared resource and keyword files
+├── tests/
+│   ├── api/           # API test suites (DummyJSON, JSONPlaceholder)
+│   │   ├── APIgeneral.robot
+│   │   ├── best_API_general.robot
+│   │   ├── good_API_gerenal.robot
+│   │   ├── test_api_env.robot
+│   │   ├── test_api_param.robot
+│   │   └── testtoken.robot
+│   ├── web/           # Web UI test suites (SauceDemo, etc.)
+│   │   ├── bad_practice_login.robot
+│   │   ├── best_practice_login.robot
+│   │   ├── good_practice_login.robot
+│   │   ├── normal_practice_login.robot
+│   │   ├── saucedemo_login.robot
+│   │   └── test_responsive_ui.robot
+│   └── mobile/        # Mobile app test suites
+│       └── test_mobile_sample_app.robot
+├── resources/
+│   ├── api_keywords.resource
 │   ├── UsersAPI.resource
-│   └── saucedemo_login_keywords.resource
-├── variables/            # Environment variable files
+│   ├── saucedemo_login_keywords.resource
+│   └── ... (web/mobile resource files)
+├── variables/
 │   ├── dev_env.py
 │   └── staging_env.py
-├── results/              # Test output (ignored by git)
-├── libs/                 # Custom Python libraries (if any)
+├── apps/              # Mobile app APKs or IPAs
+│   └── ApiDemos-debug.apk
+├── results/           # Test output (ignored by git)
+├── libs/              # Custom Python libraries (if any)
 ├── .gitignore
 └── README.md
 ```
@@ -34,7 +45,7 @@ This repository demonstrates best practices for organizing, writing, and running
 
 ## 🧩 Test Script Explanations
 
-### UI Tests (Selenium, [saucedemo.com](https://www.saucedemo.com/))
+### Web UI Tests ([saucedemo.com](https://www.saucedemo.com/))
 
 - **bad_practice_login.robot**  
   Hardcoded values, no keyword reuse, not maintainable.
@@ -52,6 +63,9 @@ This repository demonstrates best practices for organizing, writing, and running
 - **saucedemo_login.robot**  
   Demonstrates login tests for various user roles using a test template and custom keywords.
 
+- **test_responsive_ui.robot**  
+  Tests the web app at different resolutions (desktop, tablet, mobile).
+
 ### API Tests ([dummyjson.com](https://dummyjson.com/) & [jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com/))
 
 - **APIgeneral.robot, good_API_gerenal.robot, best_API_general.robot**  
@@ -67,6 +81,11 @@ This repository demonstrates best practices for organizing, writing, and running
 
 - **testtoken.robot**  
   Demonstrates token-based and public endpoint testing on jsonplaceholder.typicode.com.
+
+### Mobile App Tests
+
+- **test_mobile_sample_app.robot**  
+  Tests the official Appium sample app (ApiDemos-debug.apk) for basic UI elements.
 
 ### Text & Data Validation
 
@@ -106,40 +125,52 @@ This repository demonstrates best practices for organizing, writing, and running
 
 ## 🚀 Running the Tests
 
-### UI Tests
+### Web UI Tests
 
-Run a specific UI test suite:
+Run all web UI tests:
 ```
-robot tests/best_practice_login.robot
+robot tests/web/
+```
+Or run a specific suite:
+```
+robot tests/web/best_practice_login.robot
 ```
 
 ### API Tests
 
+Run all API tests:
+```
+robot tests/api/
+```
+Or run a specific suite:
+```
+robot tests/api/good_API_gerenal.robot
+robot tests/api/best_API_general.robot
+robot tests/api/testtoken.robot
+```
+
 Run API tests with default (dev) environment:
 ```
-robot --variablefile variables/dev_env.py tests/test_api_env.robot
+robot --variablefile variables/dev_env.py tests/api/test_api_env.robot
 ```
 
 Run API tests with staging environment:
 ```
-robot --variablefile variables/staging_env.py tests/test_api_env.robot
+robot --variablefile variables/staging_env.py tests/api/test_api_env.robot
 ```
 
 Run parameterized API tests:
 ```
-robot tests/test_api_param.robot
+robot tests/api/test_api_param.robot
 ```
 
-Run general API tests:
-```
-robot tests/good_API_gerenal.robot
-robot tests/best_API_general.robot
-```
+### Mobile App Tests
 
-Run token-based API tests:
-```
-robot tests/testtoken.robot
-```
+1. Start Appium server and your emulator/device.
+2. Run:
+   ```
+   robot tests/mobile/test_mobile_sample_app.robot
+   ```
 
 ### Text Validation Tests
 
@@ -165,6 +196,7 @@ See [DummyJSON docs](https://dummyjson.com/docs/auth) for more info.
 - Test results are saved in the `results/` folder (ignored by git).
 - You can add more environments by creating new variable files in the `variables/` folder.
 - Custom keywords are organized in the `resources/` folder for reuse and maintainability.
+- Mobile app APKs are stored in the `apps/` folder.
 
 ---
 

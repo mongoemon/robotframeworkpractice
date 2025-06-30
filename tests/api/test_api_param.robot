@@ -1,6 +1,6 @@
 *** Settings ***
 Library    JSONLibrary
-Resource    ../resources/UsersAPI.resource
+Resource    ../../resources/UsersAPI.resource
 Suite Setup    Create Users Session
 
 *** Test Cases ***

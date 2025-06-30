@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../resources/api_keywords.resource
+Resource    ../../resources/api_keywords.resource
 Library     RequestsLibrary
 Library     Collections
 Test Template     Perform API Request

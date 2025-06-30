@@ -1,6 +1,6 @@
 *** Settings ***
-Resource    ../resources/UsersAPI.resource
-Variables   ../variables/dev_env.py
+Resource    ../../resources/UsersAPI.resource
+Variables   ../../variables/dev_env.py
 Suite Setup    Create Users Session
 
 *** Test Cases ***

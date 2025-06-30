@@ -1,6 +1,6 @@
 *** Settings ***
 Library           SeleniumLibrary
-Resource          ../resources/responsive_keywords.resource
+Resource          ../../resources/responsive_keywords.resource
 Suite Setup       Open Browser To Home Page
 Suite Teardown    Close Browser
 
