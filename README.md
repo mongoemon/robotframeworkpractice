@@ -52,18 +52,21 @@ This repository demonstrates best practices for organizing, writing, and running
 - **saucedemo_login.robot**  
   Demonstrates login tests for various user roles using a test template and custom keywords.
 
-### API Tests ([reqres.in](https://reqres.in/))
+### API Tests ([dummyjson.com](https://dummyjson.com/) & [jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com/))
 
-- **APIgeneral.robot**  
-  Data-driven API tests for GET, POST, PUT, DELETE using a test template.
+- **APIgeneral.robot, good_API_gerenal.robot, best_API_general.robot**  
+  Data-driven API tests for GET, POST, PUT, DELETE using a test template and the `/posts` resource on jsonplaceholder.typicode.com.
 
-- **test_api_param.robot**  
-  API tests with parameterized requests for GET, POST, PUT, DELETE.  
+- **test_api_param.robot, UsersAPI.resource**  
+  API tests with parameterized requests for GET, POST, PUT, DELETE on `/users` using dummyjson.com.  
   Uses a resource file for session and keyword management.  
-  Requires an API key for POST/PUT/DELETE.
+  Requires an API key for POST/PUT/DELETE (demo: `dummyjson-demo-key`).
 
 - **test_api_env.robot**  
-  Best-practice API test that supports multiple environments (dev, staging) via variable files.
+  Best-practice API test that supports multiple environments (dev, staging) via variable files and dummyjson.com.
+
+- **testtoken.robot**  
+  Demonstrates token-based and public endpoint testing on jsonplaceholder.typicode.com.
 
 ### Text & Data Validation
 
@@ -92,7 +95,7 @@ This repository demonstrates best practices for organizing, writing, and running
    ```
    If `requirements.txt` is missing, install manually:
    ```
-   pip install robotframework robotframework-seleniumlibrary robotframework-requests robotframework-jsonlibrary
+   pip install robotframework robotframework-seleniumlibrary robotframework-requests robotframework-jsonlibrary robotframework-appiumlibrary
    ```
 
 4. **(Optional) Install browser drivers for UI tests:**
@@ -127,6 +130,17 @@ Run parameterized API tests:
 robot tests/test_api_param.robot
 ```
 
+Run general API tests:
+```
+robot tests/good_API_gerenal.robot
+robot tests/best_API_general.robot
+```
+
+Run token-based API tests:
+```
+robot tests/testtoken.robot
+```
+
 ### Text Validation Tests
 
 ```
@@ -135,14 +149,14 @@ robot tests/textvalidation.robot
 
 ---
 
-## 🔑 API Key for Reqres
+## 🔑 API Key for DummyJSON
 
-For POST, PUT, DELETE requests to [reqres.in](https://reqres.in/), an API key is required.  
+For POST, PUT, DELETE requests to [dummyjson.com](https://dummyjson.com/), an API key is required.  
 This project uses the demo key:  
 ```
-x-api-key: reqres-free-v1
+x-api-key: dummyjson-demo-key
 ```
-If you need your own, sign up at [https://reqres.in/signup](https://reqres.in/signup).
+See [DummyJSON docs](https://dummyjson.com/docs/auth) for more info.
 
 ---
 
@@ -156,4 +170,4 @@ If you need your own, sign up at [https://reqres.in/signup](https://reqres.in/si
 
 ## 🤝 Contributing
 
-Feel free to fork, open issues, or submit pull requests to improve this
+Feel free to fork, open issues, or submit pull requests to improve this project!

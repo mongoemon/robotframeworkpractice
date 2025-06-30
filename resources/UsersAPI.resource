@@ -3,9 +3,9 @@ Library    RequestsLibrary
 Library    JSONLibrary
 
 *** Variables ***
-${API_ENDPOINT}    https://reqres.in/api
+${API_ENDPOINT}    https://dummyjson.com
 ${USERS_PATH}      /users
-${API_KEY}         reqres-free-v1
+${API_KEY}         dummyjson-demo-key
 
 *** Keywords ***
 Create Users Session
@@ -17,27 +17,24 @@ Reset Users Session
 
 Get Users With Params
     [Arguments]    ${params}
-    # Generally get no need API_KEY in headers because it's a public endpoint 
-    # but if you want to use it, you can uncomment the next line
-    ${headers}=    Create Dictionary    Accept=application/json
-    # ${headers}=    Create Dictionary    Accept=application/json    x-api-key=${API_KEY}
+    ${headers}=    Create Dictionary    Accept=application/json    x-api-key=${API_KEY}
     ${response}=    GET On Session    api_session    ${USERS_PATH}    headers=${headers}    params=${params}
-    [Return]    ${response}
+    RETURN    ${response}
 
 Create User With Data
     [Arguments]    ${data}
     ${headers}=    Create Dictionary    Content-Type=application/json    x-api-key=${API_KEY}
-    ${response}=    POST On Session    api_session    ${USERS_PATH}    json=${data}    headers=${headers}
-    [Return]    ${response}
+    ${response}=    POST On Session    api_session    ${USERS_PATH}/add    json=${data}    headers=${headers}
+    RETURN    ${response}
 
 Update User With Data
     [Arguments]    ${user_id}    ${data}
     ${headers}=    Create Dictionary    Content-Type=application/json    x-api-key=${API_KEY}
     ${response}=    PUT On Session    api_session    ${USERS_PATH}/${user_id}    json=${data}    headers=${headers}
-    [Return]    ${response}
+    RETURN    ${response}
 
 Delete User
     [Arguments]    ${user_id}
     ${headers}=    Create Dictionary    x-api-key=${API_KEY}
     ${response}=    DELETE On Session    api_session    ${USERS_PATH}/${user_id}    headers=${headers}
-    [Return]    ${response}
+    RETURN    ${response}
